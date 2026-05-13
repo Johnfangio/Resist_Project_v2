@@ -20,6 +20,11 @@ public class PlayerController : MonoBehaviour
     {
         Move();
         Look();
+
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            TryInteract();
+        }
     }
 
     void Move()
@@ -41,5 +46,21 @@ public class PlayerController : MonoBehaviour
 
         cameraTransform.localRotation = Quaternion.Euler(yRotation, 0f, 0f);
         transform.Rotate(Vector3.up * mouseX);
+    }
+
+    void TryInteract()
+    {
+        Ray ray = new Ray(cameraTransform.position, cameraTransform.forward);
+        RaycastHit hit;
+
+        if (Physics.Raycast(ray, out hit, 3f))
+        {
+            Interactable interactable = hit.collider.GetComponent<Interactable>();
+
+            if (interactable != null)
+            {
+                interactable.Interact();
+            }
+        }
     }
 }
