@@ -2,24 +2,33 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    [Header("Movement")]
     public float speed = 5f;
     public float mouseSensitivity = 2f;
 
-    private float yRotation = 0f;
-
+    [Header("Interaction")]
     public Transform cameraTransform;
+    public GameObject interactText;
+
+    private float yRotation = 0f;
     private CharacterController controller;
 
     void Start()
     {
         controller = GetComponent<CharacterController>();
         Cursor.lockState = CursorLockMode.Locked;
+
+        if (interactText != null)
+        {
+            interactText.SetActive(false);
+        }
     }
 
     void Update()
     {
         Move();
         Look();
+        CheckForInteractable();
 
         if (Input.GetKeyDown(KeyCode.E))
         {
@@ -61,6 +70,29 @@ public class PlayerController : MonoBehaviour
             {
                 interactable.Interact();
             }
+        }
+    }
+
+    void CheckForInteractable()
+    {
+        Ray ray = new Ray(cameraTransform.position, cameraTransform.forward);
+        RaycastHit hit;
+
+        if (Physics.Raycast(ray, out hit, 3f))
+        {
+            if (hit.collider.GetComponent<Interactable>() != null)
+            {
+                if (interactText != null)
+                {
+                    interactText.SetActive(true);
+                }
+                return;
+            }
+        }
+
+        if (interactText != null)
+        {
+            interactText.SetActive(false);
         }
     }
 }
