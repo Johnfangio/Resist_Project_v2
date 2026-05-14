@@ -4,13 +4,12 @@ public class PlayerController : MonoBehaviour
 {
     [Header("Movement")]
     public float speed = 5f;
-    public float mouseSensitivity = 2f;
+    public float mouseSensitivity = 0.5f;
 
     [Header("Interaction")]
     public Transform cameraTransform;
     public GameObject interactText;
 
-    private float yRotation = 0f;
     private CharacterController controller;
 
     void Start()
@@ -47,13 +46,9 @@ public class PlayerController : MonoBehaviour
 
     void Look()
     {
-        float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * 100f * Time.deltaTime;
-        float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * 100f * Time.deltaTime;
+        float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * 50f * Time.deltaTime;
 
-        yRotation -= mouseY;
-        yRotation = Mathf.Clamp(yRotation, -90f, 90f);
-
-        cameraTransform.localRotation = Quaternion.Euler(yRotation, 0f, 0f);
+        // Only rotate left/right
         transform.Rotate(Vector3.up * mouseX);
     }
 

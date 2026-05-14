@@ -1,4 +1,5 @@
 using UnityEngine;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
@@ -7,9 +8,17 @@ public class GameManager : MonoBehaviour
     public float temperature = 35f;
     public int budget = 100;
 
+    public TextMeshProUGUI temperatureText;
+    public TextMeshProUGUI budgetText;
+
     void Awake()
     {
         instance = this;
+    }
+
+    void Start()
+    {
+        UpdateUI();
     }
 
     public void ApplyEffect(float tempChange, int cost)
@@ -19,13 +28,17 @@ public class GameManager : MonoBehaviour
             temperature += tempChange;
             budget -= cost;
 
-            Debug.Log("Temperature: " + temperature);
-            Debug.Log("Budget: " + budget);
+            UpdateUI();
         }
         else
         {
             Debug.Log("Not enough budget!");
         }
     }
-}
 
+    void UpdateUI()
+    {
+        temperatureText.text = "Temperature: " + temperature.ToString("F1") + "°C";
+        budgetText.text = "Budget: " + budget;
+    }
+}
