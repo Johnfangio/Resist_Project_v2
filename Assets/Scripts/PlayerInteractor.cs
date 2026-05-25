@@ -7,8 +7,9 @@ public class PlayerInteractor : MonoBehaviour
     public GameObject interactionPanel;
     public TextMeshProUGUI interactionText;
 
-    [Header("Detection")]
-    public float interactionRadius = 20f;
+    [Header("Raycast Detection")]
+    public Camera playerCamera;
+    public float interactionDistance = 6f;
 
     private Interactable currentInteractable;
     private Interactable lastInteractable;
@@ -17,9 +18,18 @@ public class PlayerInteractor : MonoBehaviour
     {
         Debug.Log("PlayerInteractor is running on: " + gameObject.name);
 
+        if (playerCamera == null)
+        {
+            playerCamera = Camera.main;
+        }
+
+        if (playerCamera == null)
+        {
+            Debug.LogError("No player camera assigned and Camera.main was not found.");
+        }
+
         if (interactionPanel != null)
         {
-            Debug.Log("InteractionPanel is connected.");
             interactionPanel.SetActive(false);
         }
         else
@@ -27,11 +37,7 @@ public class PlayerInteractor : MonoBehaviour
             Debug.LogError("InteractionPanel is NOT connected.");
         }
 
-        if (interactionText != null)
-        {
-            Debug.Log("InteractionText is connected.");
-        }
-        else
+        if (interactionText == null)
         {
             Debug.LogError("InteractionText is NOT connected.");
         }
@@ -39,7 +45,7 @@ public class PlayerInteractor : MonoBehaviour
 
     void Update()
     {
-        FindClosestInteractable();
+        FindInteractableInFront();
 
         if (currentInteractable != null)
         {
@@ -61,46 +67,41 @@ public class PlayerInteractor : MonoBehaviour
         }
     }
 
-    void FindClosestInteractable()
+    void FindInteractableInFront()
     {
         currentInteractable = null;
 
-        Interactable[] interactables = FindObjectsOfType<Interactable>();
-
-        float closestDistance = Mathf.Infinity;
-        Interactable closest = null;
-
-        foreach (Interactable interactable in interactables)
+        if (playerCamera == null)
         {
+            return;
+        }
+
+        Ray ray = new Ray(playerCamera.transform.position, playerCamera.transform.forward);
+
+        if (Physics.Raycast(ray, out RaycastHit hit, interactionDistance, ~0, QueryTriggerInteraction.Collide))
+        {
+            Interactable interactable = hit.collider.GetComponent<Interactable>();
+
             if (interactable == null)
             {
-                continue;
+                interactable = hit.collider.GetComponentInParent<Interactable>();
             }
 
-            float distance = Vector3.Distance(transform.position, interactable.transform.position);
-
-            if (distance < closestDistance)
+            if (interactable != null && !interactable.HasBeenUsed())
             {
-                closestDistance = distance;
-                closest = interactable;
+                currentInteractable = interactable;
+
+                if (lastInteractable != currentInteractable)
+                {
+                    Debug.Log("Looking at interactable: " + currentInteractable.gameObject.name);
+                    lastInteractable = currentInteractable;
+                }
+
+                return;
             }
         }
 
-        if (closest != null && closestDistance <= interactionRadius)
-        {
-            currentInteractable = closest;
-
-            if (lastInteractable != currentInteractable)
-            {
-                Debug.Log("Closest interactable: " + currentInteractable.gameObject.name + " | Distance: " + closestDistance);
-                lastInteractable = currentInteractable;
-            }
-        }
-        else
-        {
-            currentInteractable = null;
-            lastInteractable = null;
-        }
+        lastInteractable = null;
     }
 
     void ShowInteractionInfo()

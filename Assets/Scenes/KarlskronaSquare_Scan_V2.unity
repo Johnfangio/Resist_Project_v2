@@ -954,6 +954,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 294549186}
   m_CullTransparentMesh: 1
+--- !u!1 &354094209 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 137650, guid: 826b6a0b570e8460990010fa615b5a2a, type: 3}
+  m_PrefabInstance: {fileID: 1539424653}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &467731151
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -964,7 +969,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 137650, guid: 826b6a0b570e8460990010fa615b5a2a, type: 3}
       propertyPath: m_Name
-      value: '   PotVisual_02_Tree'
+      value: '   PotVisual_01_Tree'
       objectReference: {fileID: 0}
     - target: {fileID: 137650, guid: 826b6a0b570e8460990010fa615b5a2a, type: 3}
       propertyPath: m_IsActive
@@ -1394,7 +1399,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 2
+  m_Radius: 3
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &685405423
 MonoBehaviour:
@@ -1410,7 +1415,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interactionPanel: {fileID: 885736996}
   interactionText: {fileID: 1498711812}
-  interactionRadius: 20
+  playerCamera: {fileID: 152703884}
+  interactionDistance: 6
 --- !u!1 &688529055
 GameObject:
   m_ObjectHideFlags: 0
@@ -6794,7 +6800,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 137650, guid: 826b6a0b570e8460990010fa615b5a2a, type: 3}
       propertyPath: m_Name
-      value: '   PotVisual_01_Tree'
+      value: '   PotVisual_03_Tree'
       objectReference: {fileID: 0}
     - target: {fileID: 137650, guid: 826b6a0b570e8460990010fa615b5a2a, type: 3}
       propertyPath: m_IsActive
@@ -6889,7 +6895,7 @@ MonoBehaviour:
   temperatureChange: -2
   cost: 20
   maintenance: 5
-  objectToActivate: {fileID: 0}
+  objectToActivate: {fileID: 1427945870}
   solutionName: Tree
   description: Trees provide shade, reduce surface heat and improve the comfort of
     public spaces during extreme heat.
@@ -8413,6 +8419,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1427945870 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 137650, guid: 826b6a0b570e8460990010fa615b5a2a, type: 3}
+  m_PrefabInstance: {fileID: 467731151}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1453132739
 GameObject:
   m_ObjectHideFlags: 0
@@ -8787,6 +8798,11 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 650, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &1537007667 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 137650, guid: 826b6a0b570e8460990010fa615b5a2a, type: 3}
+  m_PrefabInstance: {fileID: 1886866767}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1539424653
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8797,7 +8813,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 137650, guid: 826b6a0b570e8460990010fa615b5a2a, type: 3}
       propertyPath: m_Name
-      value: '   PotVisual_03_Tree'
+      value: '   PotVisual_02_Tree'
       objectReference: {fileID: 0}
     - target: {fileID: 137650, guid: 826b6a0b570e8460990010fa615b5a2a, type: 3}
       propertyPath: m_IsActive
@@ -13975,7 +13991,7 @@ MonoBehaviour:
   temperatureChange: -2
   cost: 20
   maintenance: 5
-  objectToActivate: {fileID: 0}
+  objectToActivate: {fileID: 354094209}
   solutionName: Tree
   description: Trees provide shade, reduce surface heat and improve the comfort of
     public spaces during extreme heat.
@@ -14311,7 +14327,7 @@ MonoBehaviour:
   temperatureChange: -2
   cost: 20
   maintenance: 5
-  objectToActivate: {fileID: 0}
+  objectToActivate: {fileID: 1537007667}
   solutionName: Tree
   description: Trees provide shade, reduce surface heat and improve the comfort of
     public spaces during extreme heat.
@@ -14415,6 +14431,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7deb587ad6c0437cb280c9d27574c0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startTemperature: 35
+  startBudget: 100
+  startMaintenance: 0
   temperature: 35
   budget: 100
   yearlyMaintenance: 0
@@ -14539,6 +14558,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1970922180 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 137650, guid: 826b6a0b570e8460990010fa615b5a2a, type: 3}
+  m_PrefabInstance: {fileID: 819316081}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2118836513
 GameObject:
   m_ObjectHideFlags: 0
@@ -14711,7 +14735,7 @@ MonoBehaviour:
   temperatureChange: -2
   cost: 20
   maintenance: 5
-  objectToActivate: {fileID: 0}
+  objectToActivate: {fileID: 1970922180}
   solutionName: Tree
   description: Trees provide shade, reduce surface heat and improve the comfort of
     public spaces during extreme heat.

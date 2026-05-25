@@ -4,7 +4,7 @@ public class Interactable : MonoBehaviour
 {
     [Header("Effect")]
     public float temperatureChange = -2f;
-    public int cost = 10;
+    public int cost = 20;
     public int maintenance = 5;
 
     [Header("Visual to activate")]
@@ -56,7 +56,7 @@ public class Interactable : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning("No GameManager.instance found. Tree will still be activated, but budget/temperature will not update.");
+            Debug.LogWarning("No GameManager.instance found. Visual will still be activated, but budget/temperature will not update.");
         }
 
         if (!success)
