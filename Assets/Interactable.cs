@@ -7,7 +7,7 @@ public class Interactable : MonoBehaviour
 
     [Header("Effects")]
     public float temperatureChange = -2f;
-    public int cost = 10;
+    public int cost = 200000;
 
     [Header("Tree")]
     public GameObject treeObject;

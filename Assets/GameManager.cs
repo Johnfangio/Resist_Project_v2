@@ -7,9 +7,9 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
 
     [Header("Game Values")]
-    public float temperature = 35f;
-    public int budget = 100;
-    public float targetTemperature = 22f;
+    public float temperature = 30f;
+    public int budget = 800000;
+    public float targetTemperature = 24f;
 
     [Header("UI")]
     public TMP_Text temperatureText;
@@ -78,14 +78,14 @@ public class GameManager : MonoBehaviour
         if (gameEnded)
             return;
 
-        // Win
+        // Win condition
         if (temperature <= targetTemperature)
         {
             WinGame();
             return;
         }
 
-        // Lose
+        // Lose condition
         if (activatedStations >= 4 && temperature > targetTemperature)
         {
             LoseGame();
@@ -125,7 +125,7 @@ public class GameManager : MonoBehaviour
     void UpdateUI()
     {
         temperatureText.text = $"Temperature: {temperature:0}°C";
-        budgetText.text = $"Budget: ${budget}";
+        budgetText.text = $"Budget: {budget:N0} SEK";
     }
 }
 
