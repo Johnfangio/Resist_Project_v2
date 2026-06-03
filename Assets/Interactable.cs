@@ -2,6 +2,10 @@ using UnityEngine;
 
 public class Interactable : MonoBehaviour
 {
+    [Header("Station Info")]
+    public string itemName = "Tree";
+
+    [Header("Effects")]
     public float temperatureChange = -2f;
     public int cost = 10;
 
@@ -9,6 +13,8 @@ public class Interactable : MonoBehaviour
     public GameObject treeObject;
 
     private bool activated = false;
+
+    public bool IsActivated => activated;
 
     public void Interact()
     {
@@ -34,5 +40,7 @@ public class Interactable : MonoBehaviour
             temperatureChange,
             cost
         );
+
+        GameManager.instance.StationActivated();
     }
-}
+}   

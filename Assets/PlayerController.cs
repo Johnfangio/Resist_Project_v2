@@ -1,4 +1,5 @@
 using UnityEngine;
+using TMPro;
 
 public class PlayerController : MonoBehaviour
 {
@@ -8,7 +9,7 @@ public class PlayerController : MonoBehaviour
 
     [Header("Interaction")]
     public Transform cameraTransform;
-    public GameObject interactText;
+    public TMP_Text interactText;
 
     private float yRotation = 0f;
     private CharacterController controller;
@@ -16,11 +17,13 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         controller = GetComponent<CharacterController>();
+
         Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
 
         if (interactText != null)
         {
-            interactText.SetActive(false);
+            interactText.gameObject.SetActive(false);
         }
     }
 
@@ -42,6 +45,7 @@ public class PlayerController : MonoBehaviour
         float z = Input.GetAxis("Vertical");
 
         Vector3 move = transform.right * x + transform.forward * z;
+
         controller.Move(move * speed * Time.deltaTime);
     }
 
@@ -88,7 +92,21 @@ public class PlayerController : MonoBehaviour
             {
                 if (interactText != null)
                 {
-                    interactText.SetActive(true);
+                    if (!interactable.IsActivated)
+                    {
+                        interactText.text =
+                            $"Press E\n\n" +
+                            $"{interactable.itemName}\n" +
+                            $"Cost: ${interactable.cost}\n" +
+                            $"Cooling: {Mathf.Abs(interactable.temperatureChange)}°C";
+                    }
+                    else
+                    {
+                        interactText.text =
+                            $"{interactable.itemName}\nActivated";
+                    }
+
+                    interactText.gameObject.SetActive(true);
                 }
 
                 return;
@@ -97,7 +115,7 @@ public class PlayerController : MonoBehaviour
 
         if (interactText != null)
         {
-            interactText.SetActive(false);
+            interactText.gameObject.SetActive(false);
         }
     }
 }
