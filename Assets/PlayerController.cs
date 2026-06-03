@@ -64,7 +64,8 @@ public class PlayerController : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit, 3f))
         {
-            Interactable interactable = hit.collider.GetComponent<Interactable>();
+            Interactable interactable =
+                hit.collider.GetComponentInParent<Interactable>();
 
             if (interactable != null)
             {
@@ -80,12 +81,16 @@ public class PlayerController : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit, 3f))
         {
-            if (hit.collider.GetComponent<Interactable>() != null)
+            Interactable interactable =
+                hit.collider.GetComponentInParent<Interactable>();
+
+            if (interactable != null)
             {
                 if (interactText != null)
                 {
                     interactText.SetActive(true);
                 }
+
                 return;
             }
         }
